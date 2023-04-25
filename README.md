@@ -1,4 +1,4 @@
-# Homework: Graph Algorithms for the Risk Board Game
+# Homework: Graph Algorithms for the Risk Board Game!
 
 [![](https://github.com/maxinetamas/risk/workflows/tests/badge.svg)](https://github.com/maxinetamas/risk/actions?query=workflow%3Atests)
 
