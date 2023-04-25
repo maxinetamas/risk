@@ -110,15 +110,15 @@ class Board(object):
 
         Returns:
             bool: True if the input path is valid
-     '''
-        
-        if len(set(path)) != len(path):
-            return False
-        for i in range(len(path)-1):
-            neighbors = set(neighbor.territory_id for neighbor in self.neighbors(path[i]))
-            if path[i + 1] not in neighbors:
-                return False
-        return True
+        '''        
+        val = True
+        if len(path) <= 1:
+            return ret
+        val &= path[0] not in path[1:]
+        val &= path[1] in risk.definitions.territory_neighbors[path[0]] 
+        val &= self.is_valid_path(path[1:])
+        return val
+
 
     def is_valid_attack_path(self, path):
         '''
@@ -137,15 +137,11 @@ class Board(object):
         Returns:
             bool: True if the path is an attack path
         '''
-        if self.is_valid_path(path) is False:
-            return False
-        if len(path) <= 0:
-            return False
-        for i in range(len(path) - 1):
-            att_neighbors = set(att_neighbor.territory_id for att_neighbor in self.hostile_neighbors(path[i]))
-            if path[i + 1] not in att_neighbors:
-                return False
-        return True
+        val = self.is_valid_path(path)
+        val &= len(path) > 1
+        for tid in path[1:]:
+            val &= self.owner(tid) != self.owner(path[0])
+        return val
 
 
     def cost_of_attack_path(self, path):
