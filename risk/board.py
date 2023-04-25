@@ -113,7 +113,7 @@ class Board(object):
         '''        
         val = True
         if len(path) <= 1:
-            return ret
+            return val
         val &= path[0] not in path[1:]
         val &= path[1] in risk.definitions.territory_neighbors[path[0]] 
         val &= self.is_valid_path(path[1:])
